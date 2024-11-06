@@ -44,6 +44,7 @@ jobs:
 
       - name: Start steampipe service # start steampipe service - powerpipe will connect to this running steampipe postgres database
         run: |
+          powerpipe mod install github.com/turbot/steampipe-mod-aws-thrifty
           steampipe service start
 
       - name: Run Powerpipe benchmark
