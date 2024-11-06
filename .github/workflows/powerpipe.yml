@@ -24,6 +24,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::924144197303:role/nilesh-testing-powerpipe
+          role-session-name: powerpipe
           aws-region: us-east-1
 
       - name: Setup Steampipe
