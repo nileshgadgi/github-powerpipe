@@ -63,5 +63,4 @@ jobs:
           mod-branch: v0.18
           controls: |
             ec2_ebs_default_encryption_enabled
-
 ...
