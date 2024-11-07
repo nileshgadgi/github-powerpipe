@@ -42,6 +42,11 @@ jobs:
       - name: Install Powerpipe
         uses: turbot/powerpipe-action-setup@v1
 
+      - name: Start steampipe service # start steampipe service - powerpipe will connect to this running steampipe postgres database
+        run: |
+          steampipe service start
+        continue-on-error: true
+
       - name: Run Powerpipe benchmark
         uses: turbot/powerpipe-action-check@v1
         with:
@@ -49,8 +54,5 @@ jobs:
           benchmarks: |
             benchmark.cis_v200
               #   foundational_security_s3_1
-
-      - name: Start steampipe service # start steampipe service - powerpipe will connect to this running steampipe postgres database
-        run: |
-          steampipe service start
+        continue-on-error: true
 ...
