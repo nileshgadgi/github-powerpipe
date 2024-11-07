@@ -33,9 +33,11 @@ jobs:
         uses: turbot/steampipe-action-setup@v1
         with:
           plugin-connections: |
-            connection "terraform" {
+            connection "aws_tf" {
               plugin = "terraform"
-              configuration_file_paths = [ "./**/*.tf" ]
+              configuration_file_paths = [
+                "terraform/aws/**/*.tf"
+              ]
             }
 
       - name: Install Powerpipe
@@ -54,11 +56,11 @@ jobs:
       #     controls: |
       #       ebs_volume_unused
 
-      - name: Run Terraform AWS Compliance v0.18 control
+      - name: Run Terraform AWS Compliance control
         uses: turbot/powerpipe-action-check@v1
         with:
           mod-url: https://github.com/turbot/steampipe-mod-terraform-aws-compliance
-          mod-branch: v0.18
           controls: |
             ec2_ebs_default_encryption_enabled
+
 ...
