@@ -55,5 +55,4 @@ jobs:
           benchmarks: |
             benchmark.cis_v200
               #   foundational_security_s3_1
-        continue-on-error: true
 ...
