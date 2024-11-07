@@ -2,9 +2,6 @@
 name: 'Powerpipe'
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "branch-test"
   pull_request:
 
 permissions:
