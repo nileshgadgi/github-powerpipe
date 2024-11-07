@@ -72,7 +72,7 @@ jobs:
         uses: turbot/powerpipe-action-check@v1
         with:
           mod-url: https://github.com/turbot/steampipe-mod-terraform-aws-compliance
-          controls: |
-            ec2_ebs_default_encryption_enabled
+          # controls: |
+          #   ec2_ebs_default_encryption_enabled
 
 ...
