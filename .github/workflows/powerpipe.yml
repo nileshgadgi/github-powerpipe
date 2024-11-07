@@ -52,7 +52,7 @@ jobs:
         uses: turbot/powerpipe-action-check@v1
         with:
           mod-url: https://github.com/turbot/steampipe-mod-aws-compliance
-          benchmarks: |
-            benchmark.cis_v200
-              #   foundational_security_s3_1
+          controls: |
+            ebs_volume_unused
+            foundational_security_s3_1
 ...
