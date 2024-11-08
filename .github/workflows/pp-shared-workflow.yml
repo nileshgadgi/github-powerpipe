@@ -1,10 +1,6 @@
 ---
 name: 'Powerpipe Github Action Workflow'
 
-permissions:
-  id-token: write
-
-
 on:
   workflow_call:
     inputs:
