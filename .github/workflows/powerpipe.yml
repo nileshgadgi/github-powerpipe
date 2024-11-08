@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   powerpipe:
-    uses: ./.github/workflows/pp-shared-workflow.yml
+    uses: clouddrove/github-shared-workflows/.github/workflows/powerpipe.yml@feat/powerpipe # ./.github/workflows/pp-shared-workflow.yml
     with:
       cloud_provider: 'AWS'
       mod_url: "https://github.com/turbot/steampipe-mod-terraform-aws-compliance"
