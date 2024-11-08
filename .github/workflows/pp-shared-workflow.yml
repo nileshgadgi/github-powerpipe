@@ -140,7 +140,7 @@ jobs:
       - name: Comment on the PR with the markdown report
         uses: peter-evans/create-or-update-comment@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ## Terraform Compliance Report
