@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   powerpipe:
-    uses: .github/workflows/pp-shared-workflow.yml
+    uses: ./.github/workflows/pp-shared-workflow.yml
     with:
       cloud_provider: 'AWS'
       aws_assume_role: "arn:aws:iam::924144197303:role/nilesh-powerpipe-role"
