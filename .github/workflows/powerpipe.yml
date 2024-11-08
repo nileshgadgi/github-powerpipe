@@ -37,8 +37,8 @@ jobs:
           plugin = "aws"
         }
       controls: | 
-        ec2_ebs_default_encryption_enabled
-      benchmarks: ''
+        all
+      # benchmarks: 
     secrets: 
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
       aws_assume_role: ${{ secrets.assume_role }}
