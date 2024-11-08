@@ -126,4 +126,23 @@ jobs:
           controls: ${{ inputs.controls }}
           benchmarks: ${{ inputs.benchmarks }}
           github-token: ${{ secrets.TOKEN }}
+
+      - name: Read generated markdown file
+        id: read_md_file
+        run: |
+          # Read the content of the generated .md file into an environment variable
+          FILE_PATH="${{ github.workspace }}/*.md"
+          MD_CONTENT=$(cat $FILE_PATH)
+          echo "md_content<<EOF" >> $GITHUB_ENV
+          echo "$MD_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Comment on the PR with the markdown report
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Terraform Compliance Report
+            ${{ env.md_content }}
 ...
