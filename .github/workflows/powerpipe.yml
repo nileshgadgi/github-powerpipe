@@ -38,7 +38,7 @@ jobs:
         }
       controls: | 
         ec2_ebs_default_encryption_enabled
-      benchmark: ''
+      benchmarks: ''
     secrets: 
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
       aws_assume_role: ${{ secrets.assume_role }}
