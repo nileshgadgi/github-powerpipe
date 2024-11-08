@@ -64,9 +64,9 @@ on:
         description: 'AWS IAM role to assume. Necessary if cloud_provider is AWS.'
         required: false
 
-      # GITHUB:
-      #   description: 'GitHub Token'
-      #   required: false
+      TOKEN:
+        description: 'GitHub Token'
+        required: false
 
       # GCP Authentication
       GCP_CREDENTIALS:
@@ -144,7 +144,7 @@ jobs:
           mod-url: ${{ inputs.mod_url }}
           # controls: ${{ inputs.controls }}
           benchmarks: ${{ inputs.benchmarks }}
-          github-token: ${{ secrets.GITHUB }}
+          github-token: ${{ secrets.TOKEN }}
 
       # - name: Run specific AWS Compliance controls
       #   uses: turbot/powerpipe-action-check@v1
@@ -155,5 +155,5 @@ jobs:
       #     #   foundational_security_s3_1
       #     benchmarks: |
       #       benchmark.cis_v200
-      #     github-token: ${{ secrets.GITHUB }}
+      #     github-token: ${{ secrets.TOKEN }}
 ...
