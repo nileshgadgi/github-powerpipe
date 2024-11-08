@@ -32,12 +32,6 @@ on:
         default: |
           all
 
-      # AWS Authentication
-      aws_assume_role:
-        description: 'AWS IAM role to assume. Necessary if cloud_provider is AWS.'
-        required: false
-        type: string
-
       # GCP Authentication
       create_credentials_file:
         required: false
@@ -60,6 +54,11 @@ on:
         description: 'ID of the default project to use for future API calls and invocations.'
 
     secrets:
+      # AWS Authentication
+      aws_assume_role:
+        description: 'AWS IAM role to assume. Necessary if cloud_provider is AWS.'
+        required: false
+
       GITHUB:
         description: 'GitHub Token'
         required: false

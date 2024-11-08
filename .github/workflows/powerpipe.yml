@@ -25,9 +25,10 @@ jobs:
     uses: ./.github/workflows/pp-shared-workflow.yml
     with:
       cloud_provider: 'AWS'
-      aws_assume_role: ${{ secrets.assume_role }}
+      # aws_assume_role: ${{ secrets.assume_role }}
     secrets:
       GITHUB: ${{ secrets.GITHUB }}
+      aws_assume_role: ${{ secrets.assume_role }}
 
     # name: 'Powerpipe'
     # runs-on: ubuntu-latest
