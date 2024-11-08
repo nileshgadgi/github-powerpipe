@@ -39,7 +39,8 @@ jobs:
       # controls: | 
       #   all
       benchmarks: |
-        all
+        ec2
+        s3
     secrets: 
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
       aws_assume_role: ${{ secrets.assume_role }}
