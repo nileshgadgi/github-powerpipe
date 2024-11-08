@@ -36,9 +36,10 @@ jobs:
         connection "aws" {
           plugin = "aws"
         }
-      controls: | 
+      # controls: | 
+      #   all
+      benchmarks: |
         all
-      # benchmarks: 
     secrets: 
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
       aws_assume_role: ${{ secrets.assume_role }}
