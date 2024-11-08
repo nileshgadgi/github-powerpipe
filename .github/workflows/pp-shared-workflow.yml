@@ -85,7 +85,7 @@ jobs:
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ inputs.aws_assume_role }}
+          role-to-assume: ${{ secrets.aws_assume_role }}
           role-session-name: powerpipe
           aws-region: us-east-1
         if: ${{ inputs.cloud_provider == 'AWS' }}
