@@ -25,6 +25,19 @@ jobs:
     uses: ./.github/workflows/pp-shared-workflow.yml
     with:
       cloud_provider: 'AWS'
+      mod_url: "https://github.com/turbot/steampipe-mod-terraform-aws-compliance"
+      plugin_connection: |
+        connection "aws_tf" {
+          plugin = "terraform"
+          configuration_file_paths = [
+            "terraform/aws/**/*.tf"
+          ]
+        }
+        connection "aws" {
+          plugin = "aws"
+        }
+      controls: | 
+        ec2_ebs_default_encryption_enabled
     secrets: 
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
       aws_assume_role: ${{ secrets.assume_role }}

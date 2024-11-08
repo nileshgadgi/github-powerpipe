@@ -26,10 +26,10 @@ on:
           connection "aws" {
             plugin = "aws"
           }
-      # controls:
-      #   description: 'Controlers to run in powerpipe'
-      #   required: false
-      #   type: string
+      controls:
+        description: 'Controlers to run in powerpipe'
+        required: false
+        type: string
       benchmarks:
         description: 'Powerpipe step benchmarks to scan in specific mod.'
         required: false
@@ -59,13 +59,13 @@ on:
         description: 'ID of the default project to use for future API calls and invocations.'
 
     secrets:
+      TOKEN:
+        description: 'GitHub Token'
+        required: false
+
       # AWS Authentication
       aws_assume_role:
         description: 'AWS IAM role to assume. Necessary if cloud_provider is AWS.'
-        required: false
-
-      TOKEN:
-        description: 'GitHub Token'
         required: false
 
       # GCP Authentication
@@ -107,18 +107,6 @@ jobs:
           project_id: ${{ inputs.project_id }}
         if: ${{ inputs.cloud_provider == 'GCP' }}
 
-      # - name: Set mod-url based on cloud provider
-      #   id: set_mod_url
-      #   run: |
-      #     if [ "${{ github.event.inputs.cloud_provider }}" == "AWS" ]; then
-      #       echo "mod_url=https://github.com/turbot/steampipe-mod-terraform-aws-compliance" >> $GITHUB_ENV
-      #     elif [ "${{ github.event.inputs.cloud_provider }}" == "GCP" ]; then
-      #       echo "mod_url=https://github.com/turbot/steampipe-mod-terraform-gcp-compliance" >> $GITHUB_ENV
-      #     else
-      #       echo "Unsupported cloud provider: ${{ github.event.inputs.cloud_provider }}"
-      #       exit 1
-      #     fi
-
       - name: Setup Steampipe
         uses: turbot/steampipe-action-setup@v1
         with:
@@ -131,29 +119,11 @@ jobs:
         run: |
           steampipe service start
 
-      # - name: Run Powerpipe benchmark
-      #   uses: turbot/powerpipe-action-check@v1
-      #   with:
-      #     mod-url: https://github.com/turbot/steampipe-mod-aws-compliance
-      #     controls: |
-      #       ebs_volume_unused
-
       - name: Run Terraform AWS Compliance control
         uses: turbot/powerpipe-action-check@v1
         with:
           mod-url: ${{ inputs.mod_url }}
-          # controls: ${{ inputs.controls }}
+          controls: ${{ inputs.controls }}
           benchmarks: ${{ inputs.benchmarks }}
           github-token: ${{ secrets.TOKEN }}
-
-      # - name: Run specific AWS Compliance controls
-      #   uses: turbot/powerpipe-action-check@v1
-      #   with:
-      #     mod-url: https://github.com/turbot/steampipe-mod-aws-compliance
-      #     # controls: |
-      #     #   ebs_volume_unused
-      #     #   foundational_security_s3_1
-      #     benchmarks: |
-      #       benchmark.cis_v200
-      #     github-token: ${{ secrets.TOKEN }}
 ...
