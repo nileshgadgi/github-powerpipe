@@ -1,5 +1,10 @@
 ---
 name: 'Powerpipe Github Action Workflow'
+
+permissions:
+  id-token: write
+
+
 on:
   workflow_call:
     inputs:
@@ -59,9 +64,9 @@ on:
         description: 'AWS IAM role to assume. Necessary if cloud_provider is AWS.'
         required: false
 
-      GITHUB:
-        description: 'GitHub Token'
-        required: false
+      # GITHUB:
+      #   description: 'GitHub Token'
+      #   required: false
 
       # GCP Authentication
       GCP_CREDENTIALS:
