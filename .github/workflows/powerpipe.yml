@@ -2,66 +2,32 @@
 name: 'Powerpipe'
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "main"
+  pull_request:
 
 permissions:
- id-token: write
- contents: read
+  id-token: write
+  issues: write
+  pull-requests: write
 
 jobs:
   powerpipe:
-    name: 'Powerpipe'
-    runs-on: ubuntu-latest
-    # env:
-    #   # This is needed since we are running terraform with read-only permissions
-    #   ARM_SKIP_PROVIDER_REGISTRATION: true
-    # outputs:
-    #   tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::924144197303:role/nilesh-powerpipe-role
-          role-session-name: powerpipe
-          aws-region: us-east-1
-
-      - name: Setup Steampipe
-        uses: turbot/steampipe-action-setup@v1
-        with:
-          plugin-connections: |
-            connection "terraform" {
-              plugin = "terraform"
-              configuration_file_paths = [ "./**/*.tf" ]
-            }
-
-      - name: Install Powerpipe
-        uses: turbot/powerpipe-action-setup@v1
-
-      - name: Start steampipe service # start steampipe service - powerpipe will connect to this running steampipe postgres database
-        run: |
-          steampipe service start
-          # yes | powerpipe mod install github.com/turbot/steampipe-mod-aws-thrifty
-        # continue-on-error: true
-
-      # - name: Run Powerpipe benchmark
-      #   uses: turbot/powerpipe-action-check@v1
-      #   with:
-      #     mod-url: https://github.com/turbot/steampipe-mod-aws-compliance
-      #     controls: |
-      #       ebs_volume_unused
-
-      - name: Run Terraform AWS Compliance v0.18 control
-        uses: turbot/steampipe-action-check@v1
-        with:
-          mod-url: https://github.com/turbot/steampipe-mod-terraform-aws-compliance
-          mod-branch: v0.18
-          controls: |
-            ec2_ebs_default_encryption_enabled
-
+    uses: clouddrove/github-shared-workflows/.github/workflows/powerpipe.yml@feat/powerpipe
+    with:
+      cloud_provider: 'AWS'
+      mod_url: "https://github.com/turbot/steampipe-mod-terraform-aws-compliance"
+      plugin_connection: |
+        connection "aws_tf" {
+          plugin = "terraform"
+          configuration_file_paths = [
+            "terraform/aws/**/*.tf"
+          ]
+        }
+        connection "aws" {
+          plugin = "aws"
+        }
+      benchmarks: |
+        ec2
+    secrets: 
+      TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      aws_assume_role: ${{ secrets.assume_role }}
 ...
